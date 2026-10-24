@@ -19,6 +19,7 @@ export async function execute(interaction, { players }) {
     positionMs: player.positionMs,
     paused: player.isPaused,
     queue: player.queue,
+    volume: player.volume,
   });
 
   await interaction.reply({

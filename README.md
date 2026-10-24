@@ -1,7 +1,7 @@
 # Discord Music Bot
 
 A Discord bot that plays YouTube and YouTube Music songs and playlists in your
-voice channel. It has pause/resume, seek, next, previous, queue, and
+voice channel. It has pause/resume, seek, volume, next, previous, queue, and
 now-playing controls, both as slash commands and as buttons on the player
 message.
 
@@ -14,8 +14,9 @@ not need to install them manually.
 - `/play` accepts a YouTube song URL, YouTube Music URL, playlist URL, or search
   terms.
 - Playlists are queued in order (up to 100 tracks per playlist link).
-- Buttons: Previous, Pause/Resume, Next, -10s, +10s, Stop.
+- Buttons: Previous, Pause/Resume, Next, -10s, +10s, Stop, Vol -10%, Vol +10%.
 - Slash commands work alongside the buttons.
+- Volume control from 0% to 100% with `/volume` or the volume buttons.
 - Previous restarts the current song when it has been playing for more than 3
   seconds; otherwise it goes back to the previous song.
 - Seeking restarts the audio stream at the requested position, so it works for
@@ -119,12 +120,14 @@ Join a voice channel, then run:
 | `/next` | Skips to the next song. |
 | `/previous` | Restarts the current song or plays the previous one. |
 | `/seek time:<90, 1:30, or 1:02:03>` | Jumps to a position in the current song. |
+| `/volume level:<0-100>` | Sets the volume. Omit `level` to see the current volume. |
 | `/queue` | Shows the current song and upcoming tracks. |
 | `/nowplaying` | Shows details about the current song. |
 | `/stop` | Stops playback, clears the queue, and leaves the voice channel. |
 
 The player message that appears in the text channel also has buttons for all
-playback controls. You must be in the same voice channel as the bot to use them.
+playback controls and volume. You must be in the same voice channel as the bot
+to use them. The volume is shown in the player message footer.
 
 Search examples:
 

@@ -23,21 +23,29 @@ function durationLabel(track) {
   return track.durationMs ? formatDuration(track.durationMs) : 'Unknown';
 }
 
-export function buildNowPlayingEmbed({ track, positionMs, paused, queue }) {
+export function buildNowPlayingEmbed({
+  track,
+  positionMs,
+  paused,
+  queue,
+  volume,
+}) {
   const bar = buildProgressBar(positionMs, track.durationMs);
   const status = paused ? '⏸️ Paused' : '▶️ Playing';
   const progress = bar
     ? `${status}  \`${formatDuration(positionMs)}\` ${bar} \`${durationLabel(track)}\``
     : `${status}  \`${formatDuration(positionMs)}\` • Unknown length`;
 
+  const queueLabel = `Queue: ${queue.length} track${queue.length === 1 ? '' : 's'}`;
+  const volumeLabel =
+    volume == null ? '' : ` • Volume: ${Math.round(volume * 100)}%`;
+
   const embed = new EmbedBuilder()
     .setColor(paused ? COLOR_PAUSED : COLOR_PLAYING)
     .setTitle(truncate(track.title, 100))
     .setURL(track.url)
     .setDescription(progress)
-    .setFooter({
-      text: `Queue: ${queue.length} track${queue.length === 1 ? '' : 's'}`,
-    });
+    .setFooter({ text: `${queueLabel}${volumeLabel}` });
 
   if (track.thumbnail) embed.setThumbnail(track.thumbnail);
 
@@ -60,8 +68,20 @@ export function buildNowPlayingEmbed({ track, positionMs, paused, queue }) {
   return embed;
 }
 
-export function buildPlayerPayload({ track, positionMs, paused, queue }) {
-  const embed = buildNowPlayingEmbed({ track, positionMs, paused, queue });
+export function buildPlayerPayload({
+  track,
+  positionMs,
+  paused,
+  queue,
+  volume,
+}) {
+  const embed = buildNowPlayingEmbed({
+    track,
+    positionMs,
+    paused,
+    queue,
+    volume,
+  });
 
   const rowOne = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
@@ -93,7 +113,18 @@ export function buildPlayerPayload({ track, positionMs, paused, queue }) {
       .setStyle(ButtonStyle.Danger),
   );
 
-  return { embeds: [embed], components: [rowOne, rowTwo] };
+  const rowThree = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId('music:volume-down')
+      .setLabel('Vol -10%')
+      .setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder()
+      .setCustomId('music:volume-up')
+      .setLabel('Vol +10%')
+      .setStyle(ButtonStyle.Secondary),
+  );
+
+  return { embeds: [embed], components: [rowOne, rowTwo, rowThree] };
 }
 
 export function buildIdlePayload(message) {

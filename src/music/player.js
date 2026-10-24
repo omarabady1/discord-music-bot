@@ -42,6 +42,7 @@ export class GuildPlayer {
     this.failures = 0;
 
     this.offsetMs = 0;
+    this.volume = 1;
     this.renderChain = Promise.resolve();
 
     this.audioPlayer = createAudioPlayer();
@@ -66,6 +67,10 @@ export class GuildPlayer {
       this.audioPlayer.state.status === AudioPlayerStatus.Paused ||
       this.audioPlayer.state.status === AudioPlayerStatus.AutoPaused
     );
+  }
+
+  get volumePercent() {
+    return Math.round(this.volume * 100);
   }
 
   get positionMs() {
@@ -218,6 +223,22 @@ export class GuildPlayer {
     return this.pause() ? 'paused' : null;
   }
 
+  setVolume(percent) {
+    if (!Number.isFinite(percent)) {
+      throw new UserFacingError('Volume must be between 0 and 100.');
+    }
+
+    const applied = Math.min(100, Math.max(0, Math.round(percent)));
+    this.volume = applied / 100;
+    this.audioPlayer.state.resource?.volume?.setVolume(this.volume);
+    if (this.current) void this.refreshNowPlaying();
+    return applied;
+  }
+
+  adjustVolume(delta) {
+    return this.setVolume(this.volumePercent + delta);
+  }
+
   seek(targetMs) {
     if (!this.current) throw new UserFacingError('Nothing is playing.');
     if (this.current.isLive) {
@@ -288,6 +309,7 @@ export class GuildPlayer {
           positionMs: this.positionMs,
           paused: this.isPaused,
           queue: this.queue,
+          volume: this.volume,
         });
 
         await this.#render(payload);
@@ -385,8 +407,10 @@ export class GuildPlayer {
 
       const resource = createAudioResource(pcm.stream, {
         inputType: StreamType.Raw,
+        inlineVolume: true,
         metadata: track,
       });
+      resource.volume?.setVolume(this.volume);
       resource.playStream.once('close', () => pcm.kill());
 
       this.audioPlayer.play(resource);

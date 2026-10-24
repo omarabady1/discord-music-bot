@@ -55,6 +55,14 @@ export async function handleMusicButton(interaction, players) {
         player.skip();
         break;
 
+      case 'music:volume-down':
+        player.adjustVolume(-10);
+        break;
+
+      case 'music:volume-up':
+        player.adjustVolume(10);
+        break;
+
       case 'music:back':
         player.seek(Math.max(0, player.positionMs - 10_000));
         break;

@@ -117,6 +117,24 @@ Keep this terminal open while you use the bot. Slash commands appear
 immediately in every server the bot is in. The console prints an invite link if
 the bot has not joined a server yet.
 
+### Windows desktop shortcuts
+
+On Windows you can run the bot in the background without a terminal window. Run
+this once from the project folder:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\create-shortcuts.ps1
+```
+
+It adds two shortcuts to your Desktop:
+
+- **Discord Music Bot** starts the bot in the background.
+- **Stop Discord Music Bot** stops it again.
+
+The start shortcut writes the console output to `logs\bot.log` and errors to
+`logs\bot.err.log`. Check those files if the bot does not come online. Run the
+command again if you move the project folder.
+
 ## Usage
 
 Join a voice channel, then run:
@@ -237,4 +255,7 @@ src/
 scripts/
   setup.js            Downloads/verifies yt-dlp and ffmpeg
   check.js            End-to-end extraction and decoding test
+  create-shortcuts.ps1 Creates the Windows desktop shortcuts
+  start-bot.ps1       Starts the bot in the background
+  stop-bot.ps1        Stops the background bot
 ```

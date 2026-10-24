@@ -176,7 +176,7 @@ export class GuildPlayer {
     this.textChannel = channel;
   }
 
-  enqueue(tracks, { requestedBy } = {}) {
+  enqueue(tracks, { requestedBy, next = false } = {}) {
     if (!Array.isArray(tracks) || tracks.length === 0) {
       throw new UserFacingError('There is nothing to queue.');
     }
@@ -185,7 +185,12 @@ export class GuildPlayer {
       track.requestedById = requestedBy?.id ?? null;
     }
 
-    this.queue.push(...tracks);
+    if (next) {
+      this.queue.unshift(...tracks);
+    } else {
+      this.queue.push(...tracks);
+    }
+
     this.#clearIdleTimer();
 
     if (!this.current) {

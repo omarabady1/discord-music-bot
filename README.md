@@ -13,6 +13,8 @@ not need to install them manually.
 
 - `/play` accepts a YouTube song URL, YouTube Music URL, playlist URL, or search
   terms.
+- `/playnext` adds a song or playlist to the front of the queue, so it plays
+  after the current track instead of at the end.
 - Playlists are queued in order (up to 100 tracks per playlist link).
 - Buttons: Previous, Pause/Resume, Next, -10s, +10s, Stop, Vol -10%, Vol +10%.
 - Slash commands work alongside the buttons.
@@ -116,6 +118,7 @@ Join a voice channel, then run:
 | Command | What it does |
 | --- | --- |
 | `/play query:<song, URL, or playlist>` | Joins your voice channel and starts playing. |
+| `/playnext query:<song, URL, or playlist>` | Adds it to the front of the queue, after the current song. |
 | `/pause` / `/resume` | Pauses or resumes the current song. |
 | `/next` | Skips to the next song. |
 | `/previous` | Restarts the current song or plays the previous one. |
@@ -133,6 +136,7 @@ Search examples:
 
 ```text
 /play query:daft punk instant crush
+/playnext query:daft punk instant crush
 /play query:https://www.youtube.com/watch?v=5NV6Rdv1a3I
 /play query:https://music.youtube.com/watch?v=5NV6Rdv1a3I
 /play query:https://www.youtube.com/playlist?list=PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI

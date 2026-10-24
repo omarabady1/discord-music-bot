@@ -200,6 +200,26 @@ export class GuildPlayer {
     }
   }
 
+  removeUpcoming(position) {
+    if (this.queue.length === 0) {
+      throw new UserFacingError('The queue is empty.');
+    }
+
+    if (
+      !Number.isInteger(position) ||
+      position < 1 ||
+      position > this.queue.length
+    ) {
+      throw new UserFacingError(
+        `Pick a queue position from 1 to ${this.queue.length}.`,
+      );
+    }
+
+    const [removed] = this.queue.splice(position - 1, 1);
+    void this.refreshNowPlaying();
+    return removed;
+  }
+
   pause() {
     if (
       !this.current ||

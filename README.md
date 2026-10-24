@@ -15,6 +15,8 @@ not need to install them manually.
   terms.
 - `/playnext` adds a song or playlist to the front of the queue, so it plays
   after the current track instead of at the end.
+- `/queue` pages through the upcoming queue, 10 songs at a time.
+- `/remove` removes an upcoming song by its queue position.
 - Playlists are queued in order (up to 100 tracks per playlist link).
 - Buttons: Previous, Pause/Resume, Next, -10s, +10s, Stop, Vol -10%, Vol +10%.
 - Slash commands work alongside the buttons.
@@ -124,7 +126,8 @@ Join a voice channel, then run:
 | `/previous` | Restarts the current song or plays the previous one. |
 | `/seek time:<90, 1:30, or 1:02:03>` | Jumps to a position in the current song. |
 | `/volume level:<0-100>` | Sets the volume. Omit `level` to see the current volume. |
-| `/queue` | Shows the current song and upcoming tracks. |
+| `/queue page:<number>` | Shows the queue, 10 upcoming songs per page. |
+| `/remove position:<number>` | Removes an upcoming song by its queue number. Requires you to be in the bot's voice channel. |
 | `/nowplaying` | Shows details about the current song. |
 | `/stop` | Stops playback, clears the queue, and leaves the voice channel. |
 

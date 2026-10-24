@@ -7,6 +7,7 @@ const idleMinutes = Number.parseInt(
 
 export const config = {
   token: process.env.DISCORD_TOKEN?.trim() ?? '',
+  youtubeMusicApiKey: process.env.YOUTUBE_MUSIC_API_KEY?.trim() ?? '',
   cookiesFile: process.env.YTDLP_COOKIES_FILE?.trim() || null,
   idleDisconnectMs:
     Number.isFinite(idleMinutes) && idleMinutes >= 0

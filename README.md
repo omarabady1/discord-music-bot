@@ -13,6 +13,8 @@ not need to install them manually.
 
 - `/play` accepts a YouTube song URL, YouTube Music URL, playlist URL, or search
   terms.
+- `/search` searches YouTube Music and shows matching songs while you type;
+  pick one from the list to play it.
 - `/playnext` adds a song or playlist to the front of the queue, so it plays
   after the current track instead of at the end.
 - `/queue` pages through the upcoming queue, 10 songs at a time.
@@ -94,10 +96,11 @@ Open `.env` and paste the token:
 DISCORD_TOKEN=your-bot-token-here
 ```
 
-Optional settings:
+Settings:
 
 | Variable | Purpose |
 | --- | --- |
+| `YOUTUBE_MUSIC_API_KEY` | Public API key used by the YouTube Music web player. Required for `/search` suggestions. |
 | `YTDLP_COOKIES_FILE` | Path to a cookies file for age-restricted or bot-checked videos. |
 | `IDLE_DISCONNECT_MINUTES` | Minutes before leaving an idle voice channel. Default `5`; `0` disables. |
 | `YTDLP_PATH` | Override the `yt-dlp` binary path. |
@@ -120,6 +123,7 @@ Join a voice channel, then run:
 | Command | What it does |
 | --- | --- |
 | `/play query:<song, URL, or playlist>` | Joins your voice channel and starts playing. |
+| `/search query:<song or artist>` | Searches YouTube Music with live suggestions; the selected song plays like `/play`. |
 | `/playnext query:<song, URL, or playlist>` | Adds it to the front of the queue, after the current song. |
 | `/pause` / `/resume` | Pauses or resumes the current song. |
 | `/next` | Skips to the next song. |
@@ -139,6 +143,7 @@ Search examples:
 
 ```text
 /play query:daft punk instant crush
+/search query:daft punk instant crush
 /playnext query:daft punk instant crush
 /play query:https://www.youtube.com/watch?v=5NV6Rdv1a3I
 /play query:https://music.youtube.com/watch?v=5NV6Rdv1a3I

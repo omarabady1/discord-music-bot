@@ -22,7 +22,8 @@ not need to install them manually.
 - Playlists are queued in order (up to 100 tracks per playlist link).
 - Buttons: Previous, Pause/Resume, Next, -10s, +10s, Stop, Vol -10%, Vol +10%.
 - Slash commands work alongside the buttons.
-- Volume control from 0% to 100% with `/volume` or the volume buttons.
+- Playback starts at 15% volume. Volume can be changed from 0% to 100% with
+  `/volume` or the volume buttons.
 - Previous restarts the current song when it has been playing for more than 3
   seconds; otherwise it goes back to the previous song.
 - Seeking restarts the audio stream at the requested position, so it works for

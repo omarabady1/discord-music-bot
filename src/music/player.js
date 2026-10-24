@@ -18,6 +18,7 @@ import { formatDuration, truncate } from '../utils/time.js';
 const MAX_HISTORY = 50;
 const PREVIOUS_RESTART_THRESHOLD_MS = 3000;
 const MAX_CONSECUTIVE_FAILURES = 3;
+const DEFAULT_VOLUME = 0.15;
 
 export class GuildPlayer {
   constructor({ guildId, adapterCreator, client, onDestroy }) {
@@ -42,7 +43,7 @@ export class GuildPlayer {
     this.failures = 0;
 
     this.offsetMs = 0;
-    this.volume = 1;
+    this.volume = DEFAULT_VOLUME;
     this.renderChain = Promise.resolve();
 
     this.audioPlayer = createAudioPlayer();
